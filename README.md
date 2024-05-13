@@ -1,6 +1,6 @@
 # Find-in-Wiki
 
-[Find in Wiki](find-in-wiki.julesmatundu.com) est une application web simple conçue pour rechercher des articles sur Wikipédia et fournir des résultats rapides et pertinents.
+[Find in Wiki](https://find-in-wiki.julesmatundu.com/) est une application web simple conçue pour rechercher des articles sur Wikipédia et fournir des résultats rapides et pertinents.
 
 ## Fonctionnalités
 
@@ -31,4 +31,4 @@ Pour utiliser l'application en local avec Live Server :
 
 Ce projet est destiné à démontrer mes compétences en développement web et n'est pas destiné à une utilisation commerciale.
 
-Il est disponible pour visualisation sur [Find in Wiki](find-in-wiki.julesmatundu.com).
+Il est disponible pour visualisation sur [Find in Wiki](https://find-in-wiki.julesmatundu.com/).
