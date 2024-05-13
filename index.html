@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="images/logo-find-in-wiki.jpg" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Find in Wiki</title>
+  </head>
+  <body>
+    <img
+      src="images/logo-find-in-wiki.jpg"
+      alt="Logo de Find in wiki"
+      class="wiki-logo"
+    />
+
+    <h1>Find in <span>Wiki</span></h1>
+
+    <form>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Rechercher un sujet"
+      />
+    </form>
+
+    <p class="error-msg"></p>
+
+    <div class="results-display"></div>
+
+    <div class="loader">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
