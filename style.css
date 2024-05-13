@@ -48,7 +48,7 @@ h1 span {
 }
 
 form {
-  width: 60%;
+  width: 90%;
   margin-bottom: 2rem;
 
   display: flex;
@@ -119,5 +119,12 @@ input {
 @keyframes load {
   to {
     transform: translateY(1rem);
+  }
+}
+
+/* MEDIA QUERY */
+@media screen and (max-width: 767px) {
+  form {
+    width: 80%;
   }
 }

@@ -4,6 +4,7 @@ const form = document.querySelector('form')
 const input = document.querySelector('input')
 const errorMsg = document.querySelector('.error-msg')
 const resultsDisplay = document.querySelector('.results-display')
+const loader = document.querySelector('.loader')
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -14,6 +15,8 @@ form.addEventListener('submit', (e) => {
     } else {
         errorMsg.style.display = 'none'
         errorMsg.textContent = ''
+        loader.style.display = 'flex'
+        resultsDisplay.textContent = '' // Vider le contenu de la précédente recherche
         wikiApiCall(input.value)
     }
 })
@@ -23,20 +26,28 @@ async function wikiApiCall(searchInput) {
         const response = await fetch(
             `https://fr.wikipedia.org/w/api.php?action=query&list=search&srsearch=${searchInput}&format=json&origin=*&srlimit=20`
         )
-        console.log(response)
+
+        if (!response.ok) {
+            throw new Error(response.status)
+        }
 
         const data = await response.json()
-        console.log(data)
 
         createCards(data.query.search)
     } catch (err) {
+        errorMsg.style.display = 'block'
+        errorMsg.textContent = err
         console.error(err)
+        loader.style.display = 'none'
     }
 }
 
 function createCards(data) {
     if (!data.length) {
+        errorMsg.style.display = 'block'
         errorMsg.textContent = 'Aucun résultat trouvé'
+        loader.style.display = 'none'
+        return
     }
 
     data.forEach((el) => {
@@ -69,4 +80,5 @@ function createCards(data) {
         card.append(titleCard, titleLinkCard, linkCard, descriptionCard, br)
         resultsDisplay.append(card)
     })
+    loader.style.display = 'none'
 }
