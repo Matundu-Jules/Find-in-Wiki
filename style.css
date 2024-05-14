@@ -9,6 +9,7 @@
   /* VARIABLES */
   --background: #fff;
   --primary: #015989;
+  --primary-light: #339ad1;
   --secondary: #246024;
   --font-color: #031e29;
   --error: #ab0d17;
@@ -46,13 +47,21 @@ h1 {
 h1 span {
   font-weight: 800;
 }
+h2 {
+  margin-bottom: 0;
+}
 
 form {
   width: 90%;
   margin-bottom: 2rem;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+label {
+  margin-bottom: 1rem;
 }
 input {
   display: block;
@@ -64,6 +73,9 @@ input {
   border-radius: 0.5rem;
   box-shadow: var(--box-shadow);
 }
+input:focus {
+  outline: 2px solid var(--primary);
+}
 
 .error-msg {
   text-align: center;
@@ -72,27 +84,48 @@ input {
 
 .results-display {
   width: 70%;
+  margin-bottom: 4rem;
 }
 
 .result-item {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .result-title {
   font-size: 2.2rem;
+}
+.result-title a {
+  color: var(--primary-light);
+  text-decoration: none;
+}
+.result-title a:visited,
+.result-title a:hover {
+  color: var(--primary);
+  text-decoration: underline;
 }
 
 .result-snippet {
   font-size: 1.5rem;
   color: var(--font-color);
   opacity: 0.9;
+  max-height: 4.5rem;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .result-link {
   color: var(--secondary);
   text-decoration: none;
   display: block;
-  overflow-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
 }
 
 /* LOADER */

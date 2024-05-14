@@ -1,4 +1,5 @@
 // `https://fr.wikipedia.org/w/api.php?action=query&list=search&srsearch=${searchInput}&format=json&origin=*&srlimit=20`
+// `https://fr.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${searchInput}&gsrlimit=20&prop=extracts&exintro&explaintext&format=json&origin=*`
 
 const form = document.querySelector('form')
 const input = document.querySelector('input')
@@ -24,7 +25,7 @@ form.addEventListener('submit', (e) => {
 async function wikiApiCall(searchInput) {
     try {
         const response = await fetch(
-            `https://fr.wikipedia.org/w/api.php?action=query&list=search&srsearch=${searchInput}&format=json&origin=*&srlimit=20`
+            `https://fr.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${searchInput}&gsrlimit=20&prop=extracts&exintro&explaintext&format=json&origin=*`
         )
 
         if (!response.ok) {
@@ -33,7 +34,13 @@ async function wikiApiCall(searchInput) {
 
         const data = await response.json()
 
-        createCards(data.query.search)
+        if (!data.query) {
+            errorMsg.style.display = 'block'
+            loader.style.display = 'none'
+            throw new Error('Aucun résultat trouvé')
+        }
+
+        createCards(data.query.pages)
     } catch (err) {
         errorMsg.style.display = 'block'
         errorMsg.textContent = err
@@ -43,20 +50,15 @@ async function wikiApiCall(searchInput) {
 }
 
 function createCards(data) {
-    if (!data.length) {
-        errorMsg.style.display = 'block'
-        errorMsg.textContent = 'Aucun résultat trouvé'
-        loader.style.display = 'none'
-        return
-    }
+    const values = Object.values(data)
 
-    data.forEach((el) => {
+    values.forEach((el) => {
         const url = `https://fr.wikipedia.org/?curid=${el.pageid}`
 
         const card = document.createElement('div')
         card.className = 'result-item'
 
-        const titleCard = document.createElement('h3')
+        const titleCard = document.createElement('h2')
         titleCard.className = 'result-title'
 
         const titleLinkCard = document.createElement('a')
@@ -65,19 +67,15 @@ function createCards(data) {
         titleLinkCard.textContent = el.title
         titleCard.append(titleLinkCard)
 
-        const linkCard = document.createElement('a')
-        linkCard.href = url
+        const linkCard = document.createElement('p')
         linkCard.className = 'result-link'
-        linkCard.target = '_blank'
         linkCard.textContent = url
 
         const descriptionCard = document.createElement('span')
         descriptionCard.className = 'result-snippet'
-        descriptionCard.innerHTML = el.snippet
+        descriptionCard.innerHTML = el.extract
 
-        const br = document.createElement('br')
-
-        card.append(titleCard, titleLinkCard, linkCard, descriptionCard, br)
+        card.append(titleCard, linkCard, descriptionCard)
         resultsDisplay.append(card)
     })
     loader.style.display = 'none'
