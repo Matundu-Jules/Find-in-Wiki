@@ -159,5 +159,9 @@ input:focus {
 @media screen and (max-width: 767px) {
   form {
     width: 80%;
+
+    input {
+      margin: 0;
+    }
   }
 }
